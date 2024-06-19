@@ -25,8 +25,6 @@
 
 
 
-get_ipython().system('pip install textgrad # you might need to restart the notebook after installing textgrad')
-
 from textgrad.engine import get_engine
 from textgrad import Variable
 from textgrad.optimizer import TextualGradientDescent
