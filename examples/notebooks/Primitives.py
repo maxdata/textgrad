@@ -61,7 +61,7 @@ x.gradients
 
 
 
-engine = get_engine("gpt-3.5-turbo")
+engine = get_engine("azure-gpt-4o")
 
 
 # This object behaves like you would expect an LLM to behave: You can sample generation from the engine using the `generate` method. 

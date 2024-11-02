@@ -1,45 +1,13 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## Tutorial: Optimizing a Prompt
-# 
-# ![TextGrad](https://github.com/vinid/data/blob/master/logo_full.png?raw=true)
-# 
-# An autograd engine -- for textual gradients!
-# 
-# [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zou-group/TextGrad/blob/main/examples/notebooks/Prompt-Optimization.ipynb)
-# [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
-# [![Arxiv](https://img.shields.io/badge/arXiv-2406.07496-B31B1B.svg)](https://arxiv.org/abs/2406.07496)
-# [![Documentation Status](https://readthedocs.org/projects/textgrad/badge/?version=latest)](https://textgrad.readthedocs.io/en/latest/?badge=latest)
-# [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/textgrad)](https://pypi.org/project/textgrad/)
-# [![PyPI](https://img.shields.io/pypi/v/textgrad)](https://pypi.org/project/textgrad/)
-# 
-# **Objectives:**
-# 
-# * In this tutorial, we will run prompt optimization.
-# 
-# **Requirements:**
-# 
-# * You need to have an OpenAI API key to run this tutorial. This should be set as an environment variable as OPENAI_API_KEY.
-# 
-
-
-
-get_ipython().system('pip install textgrad # you might need to restart the notebook after installing textgrad')
 
 import argparse
 import concurrent
 from dotenv import load_dotenv
 from tqdm import tqdm
-import textgrad as tg
 from textgrad.tasks import load_task
+import textgrad as tg
 import numpy as np
 import random
 load_dotenv(override=True)
-
-
-# Let's first define some support functions
-
 
 
 def set_seed(seed):
