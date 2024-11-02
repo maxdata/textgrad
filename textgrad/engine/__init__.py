@@ -39,45 +39,10 @@ def get_engine(engine_name: str, **kwargs) -> EngineLM:
         raise ValueError(f"Cache is currently supported only for LiteLLM engines, not {engine_name}")
 
     # check if engine_name starts with "experimental:"
-    if engine_name.startswith("experimental:"):
-        engine_name = engine_name.split("experimental:")[1]
-        return LiteLLMEngine(model_string=engine_name, **kwargs)
     if engine_name.startswith("azure"):
         from .openai import AzureChatOpenAI
         # remove engine_name "azure-" prefix
         engine_name = engine_name[6:]
         return AzureChatOpenAI(model_string=engine_name, **kwargs)
-    elif (("gpt-4" in engine_name) or ("gpt-3.5" in engine_name)):
-        from .openai import ChatOpenAI
-        return ChatOpenAI(model_string=engine_name, is_multimodal=_check_if_multimodal(engine_name), **kwargs)
-    elif "claude" in engine_name:
-        from .anthropic import ChatAnthropic
-        return ChatAnthropic(model_string=engine_name, is_multimodal=_check_if_multimodal(engine_name), **kwargs)
-    elif "gemini" in engine_name:
-        from .gemini import ChatGemini
-        return ChatGemini(model_string=engine_name, **kwargs)
-    elif "together" in engine_name:
-        from .together import ChatTogether
-        engine_name = engine_name.replace("together-", "")
-        return ChatTogether(model_string=engine_name, **kwargs)
-    elif engine_name in ["command-r-plus", "command-r", "command", "command-light"]:
-        from .cohere import ChatCohere
-        return ChatCohere(model_string=engine_name, **kwargs)
-    elif engine_name.startswith("ollama"):
-        from .openai import ChatOpenAI, OLLAMA_BASE_URL
-        model_string = engine_name.replace("ollama-", "")
-        return ChatOpenAI(
-            model_string=model_string,
-            base_url=OLLAMA_BASE_URL,
-            **kwargs
-        )
-    elif "vllm" in engine_name:
-        from .vllm import ChatVLLM
-        engine_name = engine_name.replace("vllm-", "")
-        return ChatVLLM(model_string=engine_name, **kwargs)
-    elif "groq" in engine_name:
-        from .groq import ChatGroq
-        engine_name = engine_name.replace("groq-", "")
-        return ChatGroq(model_string=engine_name, **kwargs)
     else:
         raise ValueError(f"Engine {engine_name} not supported")
