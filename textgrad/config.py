@@ -42,8 +42,19 @@ class SingletonBackwardEngine:
         """
         return self.engine
 
-def set_backward_engine(engine: Union[EngineLM, str], override: bool = False):
+def set_backward_engine(engine: Union[EngineLM, str], override: bool = False, **kwargs):
     singleton_backward_engine = SingletonBackwardEngine()
     if isinstance(engine, str):
-        engine = get_engine(engine)
+        engine = get_engine(engine, **kwargs)
     singleton_backward_engine.set_engine(engine, override=override)
+
+
+def validate_engine_or_get_default(engine):
+    if (engine is None) and (SingletonBackwardEngine().get_engine() is None):
+        raise Exception(
+            "No engine provided. Either provide an engine as the argument to this call, or use `textgrad.set_backward_engine(engine)` to set the backward engine.")
+    elif engine is None:
+        engine = SingletonBackwardEngine().get_engine()
+    if isinstance(engine, str):
+        engine = get_engine(engine)
+    return engine
