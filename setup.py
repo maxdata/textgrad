@@ -8,15 +8,15 @@ with open("README.md") as readme_file:
 
 setup(
     name="textgrad",
-    version="0.1.3",
+    version="0.1.5",
     description="",
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     license="MIT license",
     long_description=readme,
@@ -28,6 +28,7 @@ setup(
     include_package_data=True,
     install_requires=requirements,
     extras_require={
+        "vllm": ["vllm"],
     },
     zip_safe=False,
 )
